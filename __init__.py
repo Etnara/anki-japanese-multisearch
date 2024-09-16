@@ -6,6 +6,7 @@ RTK_URL = "https://hochanh.github.io/rtk/"
 WIKITIONARY_URL = "https://en.wiktionary.org/wiki/"
 TOOLZAR_URL = "https://kanji.toolzar.com/"
 YOUGLISH_URL = "https://youglish.com/pronounce/"
+IMMERSION_KIT_URL = "https://www.immersionkit.com/dictionary?keyword="
 
 def keep_kanji(text):
     kanji = [x for x in text if 19968 <= ord(x) <= 40895]
@@ -23,6 +24,8 @@ def add_to_context_menu(view, menu):
     jisho.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(JISHO_URL + selected)))
     wiktionary = menu.addAction("Wikitionary: " + selected)
     wiktionary.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(WIKITIONARY_URL + selected)))
+    immersion_kit = menu.addAction("Immersion Kit: " + selected)
+    immersion_kit.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(IMMERSION_KIT_URL + selected)))
     youglish = menu.addAction("YouGlish: " + selected)
     youglish.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(YOUGLISH_URL + selected + "/japanese")))
 
