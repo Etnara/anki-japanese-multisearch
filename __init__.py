@@ -1,4 +1,5 @@
 from anki import hooks
+from aqt import mw
 from aqt.qt import QDesktopServices, QUrl, QGuiApplication, QClipboard
 
 JISHO_URL= "https://jisho.org/search/"
@@ -15,7 +16,7 @@ def keep_kanji(text):
 def add_to_context_menu(view, menu):
     selected = view.page().selectedText()
     if not selected:
-        return
+        selected = mw.col.sched.getCard().note().fields[0]
 
     gap = menu.addAction(" ")
 
