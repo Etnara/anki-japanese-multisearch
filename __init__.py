@@ -16,7 +16,11 @@ def keep_kanji(text):
 def add_to_context_menu(view, menu):
     selected = view.page().selectedText()
     if not selected:
-        selected = mw.col.sched.getCard().note().fields[0]
+        selected = mw.col.sched.getCard()
+        if selected is None:
+            return
+        else:
+            selected = selected.note().fields[0]
 
     gap = menu.addAction(" ")
 
