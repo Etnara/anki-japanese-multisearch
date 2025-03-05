@@ -8,6 +8,7 @@ WIKITIONARY_URL = "https://en.wiktionary.org/wiki/"
 TOOLZAR_URL = "https://kanji.toolzar.com/"
 YOUGLISH_URL = "https://youglish.com/pronounce/"
 IMMERSION_KIT_URL = "https://www.immersionkit.com/dictionary?keyword="
+GOOGLE_IMAGES_URL = "https://www.google.com/search?udm=2&q="
 
 def keep_kanji(text):
     kanji = [x for x in text if 19968 <= ord(x) <= 40895]
@@ -22,7 +23,8 @@ def add_to_context_menu(view, menu):
         else:
             selected = selected.note().fields[0]
 
-    gap = menu.addAction(" ")
+    if menu.actions():
+        menu.addSeparator()
 
     # Search Everything
     jisho = menu.addAction("Jisho: " + selected)
@@ -33,13 +35,15 @@ def add_to_context_menu(view, menu):
     immersion_kit.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(IMMERSION_KIT_URL + selected)))
     youglish = menu.addAction("YouGlish: " + selected)
     youglish.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(YOUGLISH_URL + selected + "/japanese")))
+    google_images = menu.addAction("Google Images: " + selected)
+    google_images.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(GOOGLE_IMAGES_URL + selected)))
 
     # Search Kanji Only
     selected_kanji = keep_kanji(selected)
     if not selected_kanji:
         return
 
-    gap2 = menu.addAction(" ")
+    menu.addSeparator()
 
     jishoKanji = menu.addAction("Jisho Kanji: " + selected_kanji)
     jishoKanji.triggered.connect(lambda: QDesktopServices.openUrl(QUrl(JISHO_URL + selected_kanji + " %23kanji")))
